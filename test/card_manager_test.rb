@@ -23,7 +23,17 @@ class CardManagerTest < Minitest::Test
     assert_instance_of CardManager, @card_manager
   end
 
-  
+  def test_validate_data
+    assert @card_manager.validate_data("This", "Is", "Correct")
+    refute @card_manager.validate_data("This", "Is", :false)
+    refute @card_manager.validate_data("This", 25, "false")
+    refute @card_manager.validate_data(true, "Not", "Really")
+  end
+
+  def test_create_card
+    assert_instance_of Card, @card_manager.create_card("Produces", "New", "Card")
+    assert_nil @card_manager.create_card("Not", "Card", false)
+  end
 
   def test_load_from_file
     @card_manager.load_from_file(@file_name)
