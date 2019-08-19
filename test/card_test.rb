@@ -23,4 +23,8 @@ class CardTest < Minitest::Test
   def test_it_has_a_category
     assert_equal :Geography, @card.category
   end
+
+  def test_overload_equality
+    assert @card == Card.new("What is the capital of Alaska?", "Juneau", :Geography)
+  end
 end
