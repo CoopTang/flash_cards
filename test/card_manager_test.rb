@@ -15,7 +15,6 @@ class CardManagerTest < Minitest::Test
     @card_7 = Card.new("What is Mike's middle name?", "nobody knows", "Turing Staff")
     @card_8 = Card.new("What cardboard cutout lives at Turing?", "Justin Bieber", "Pop Culture")
     @cards = [@card_1, @card_2, @card_3, @card_4, @card_5, @card_6, @card_7, @card_8]
-    @file_name = "./data/deck_1.txt"
     @card_manager = CardManager.new
   end
 
@@ -35,19 +34,15 @@ class CardManagerTest < Minitest::Test
     assert_nil @card_manager.create_card("Not", "Card", false)
   end
 
-  def test_load_from_file
-    @card_manager.load_from_file(@file_name)
-
-    # Needed this makeshift test to check if cards were correct
-    # Minitest has difficulties comparing objects with the same values
-    # but different object IDs
-    pass = true
-    @card_manager.cards_by_file[@file_name].each.with_index do |card, i|
-      if card.question != @cards[i].question || card.answer != @cards[i].answer || card.category != @cards[i].category
-        pass = false
-      end
-    end
-
-    assert pass
+  def test_cards_in_category
+    @card_manager.create_card("What is the capital of Alaska?", "Juneau", "Geography")
+    @card_manager.create_card("The Viking spacecraft sent back to Earth photographs and reports about the surface of which planet?", "Mars", "STEM")
+    @card_manager.create_card("Describe in words the exact direction that is 697.5° clockwise from due north?", "North north west", "STEM")
+    @card_manager.create_card("Where is Turing based out of?", "Denver", "Geography")
+    @card_manager.create_card("What is 5 + 5?", "10", "STEM")
+    
+    assert_equal [@card_1, @card_4], @card_manager.cards_in_category("Geography")
+    assert_equal [@card_2, @card_3, @card_5], @card_manager.cards_in_category("STEM")
+    assert_equal [], @card_manager.cards_in_category("Not a category")
   end
 end
