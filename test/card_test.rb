@@ -26,5 +26,6 @@ class CardTest < Minitest::Test
 
   def test_overload_equality
     assert @card == Card.new("What is the capital of Alaska?", "Juneau", :Geography)
+    refute @card == Card.new("These", "Aren't", "Equal")
   end
 end
