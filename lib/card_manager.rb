@@ -5,23 +5,20 @@ class CardManager
     @cards = []
   end
 
+  # TODO: Better data validation
+  # What exactly do I want a card to be?
   def validate_data(question, answer, category)
-    if question.class != String
-      return "Invalid: question"
+    if question.class != String || answer.class != String || category.class != String
+      false
+    else
+      true
     end
-    if answer.class != String
-      return "Invalid: answer"
-    end
-    if category.class != String
-      return "Invalid: category"
-    end
-    return true
   end
 
   def create_card(question, answer, category)
     if validate_data(question, answer, category)
-      @cards.push(Card.new(question, answer, category))
-      @cards.last
+      @cards.push(Card.new(question, answer, category)).last
+    end
   end
 
   def load_from_file(file_name) 
