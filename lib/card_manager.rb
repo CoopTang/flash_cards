@@ -1,9 +1,27 @@
 class CardManager
-  attr_reader :cards_by_file
+  attr_reader :cards
 
   def initialize(file_name=nil)
-    @cards_by_file = {}
-    load_from_file(file_name)
+    @cards = []
+  end
+
+  def validate_data(question, answer, category)
+    if question.class != String
+      return "Invalid: question"
+    end
+    if answer.class != String
+      return "Invalid: answer"
+    end
+    if category.class != String
+      return "Invalid: category"
+    end
+    return true
+  end
+
+  def create_card(question, answer, category)
+    if validate_data(question, answer, category)
+      @cards.push(Card.new(question, answer, category))
+      @cards.last
   end
 
   def load_from_file(file_name) 

@@ -23,6 +23,8 @@ class CardManagerTest < Minitest::Test
     assert_instance_of CardManager, @card_manager
   end
 
+  
+
   def test_load_from_file
     @card_manager.load_from_file(@file_name)
 
