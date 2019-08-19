@@ -6,4 +6,12 @@ class Card
     @answer   = answer
     @category = category
   end
+
+  def ==(card)
+    if @question == card.question && @answer == card.answer && @category == card.category
+      true
+    else
+      false
+    end
+  end
 end
