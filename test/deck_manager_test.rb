@@ -7,6 +7,8 @@ require './lib/deck_manager'
 class DeckManagerTest < Minitest::Test
 
   def setup
+    deck_1_file = "deck_1.txt"
+    deck_2_file = "deck_2.txt"
     @card_1 = Card.new("What is the capital of Alaska?", "Juneau", "Geography")
     @card_2 = Card.new("The Viking spacecraft sent back to Earth photographs and reports about the surface of which planet?", "Mars", "STEM")
     @card_3 = Card.new("Describe in words the exact direction that is 697.5° clockwise from due north?", "North north west", "STEM")
@@ -28,6 +30,16 @@ class DeckManagerTest < Minitest::Test
   end
 
   def test_load_from_file
+    assert_equal Hash.new, @deck_manager.decks
+
+    @deck_manager.load_from_file(@deck_1_file)
+    assert_equal @cards_1, @deck_manager.decks[@deck_1_file]
+
+    @deck_manager.load_from_file(@deck_2_file)
+    assert_equal @cards_1, @deck_manager.decks[@deck_1_file]
+    assert_equal @cards_2, @deck_manager.decks[@deck_2_file]
+
+    assert_nil @deck_manager.load_from_file(@deck_1_file)
   end
 
   def test_save_to_file
