@@ -11,10 +11,7 @@ class CardManagerTest < Minitest::Test
     @card_3 = Card.new("Describe in words the exact direction that is 697.5° clockwise from due north?", "North north west", "STEM")
     @card_4 = Card.new("Where is Turing based out of?", "Denver", "Geography")
     @card_5 = Card.new("What is 5 + 5?", "10", "STEM")
-    @card_6 = Card.new("What is Rachel's favorite animal?", "red panda", "Turing Staff")
-    @card_7 = Card.new("What is Mike's middle name?", "nobody knows", "Turing Staff")
-    @card_8 = Card.new("What cardboard cutout lives at Turing?", "Justin Bieber", "Pop Culture")
-    @cards = [@card_1, @card_2, @card_3, @card_4, @card_5, @card_6, @card_7, @card_8]
+    @cards = [@card_1, @card_2, @card_3, @card_4, @card_5]
     @card_manager = CardManager.new
   end
 
@@ -40,7 +37,7 @@ class CardManagerTest < Minitest::Test
     @card_manager.create_card("Describe in words the exact direction that is 697.5° clockwise from due north?", "North north west", "STEM")
     @card_manager.create_card("Where is Turing based out of?", "Denver", "Geography")
     @card_manager.create_card("What is 5 + 5?", "10", "STEM")
-    
+
     assert_equal [@card_1, @card_4], @card_manager.cards_in_category("Geography")
     assert_equal [@card_2, @card_3, @card_5], @card_manager.cards_in_category("STEM")
     assert_equal [], @card_manager.cards_in_category("Not a category")
